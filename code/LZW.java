@@ -24,6 +24,7 @@ public class LZW {
         while (input.length() > 0) {
             String s = st.longestPrefixOf(input);  // Find max prefix match s.
             BinaryStdOut.write(st.get(s), W);      // Print s's encoding.
+           
             int t = s.length();
             if (t < input.length() && code < L)    // Add s to symbol table.
                 st.put(input.substring(0, t + 1), code++);
@@ -48,6 +49,7 @@ public class LZW {
 
         while (true) {
             BinaryStdOut.write(val);
+           
             codeword = BinaryStdIn.readInt(W);
             if (codeword == R) break;
             String s = st[codeword];
@@ -57,13 +59,9 @@ public class LZW {
         }
         BinaryStdOut.close();
     }
-
-
-
     public static void main(String[] args) {
         if      (args[0].equals("-")) compress();
         else if (args[0].equals("+")) expand();
         else throw new RuntimeException("Illegal command line argument");
     }
-
 }
