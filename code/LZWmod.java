@@ -23,7 +23,7 @@ public class LZWmod {
    
       if(args.equals("n"))
       {
-        //indicator for the express method
+        //indicator for the expand method
         BinaryStdOut.write("n");
         W=9;
         L=(int) Math.pow(2, W); 
@@ -39,7 +39,7 @@ public class LZWmod {
         Integer codeword = st.get(current);
         while (!BinaryStdIn.isEmpty()) {
           codeword = st.get(current);
-          //increase the space in the st
+          //increase the space in the st when full
           if( code==L && W<maxCodwordLength)
               {
                 ++W;
@@ -67,7 +67,7 @@ public class LZWmod {
     } 
     else if(args.equals("r"))
     {
-      //indicator for express method
+      //indicator for expand method
       BinaryStdOut.write("r");
       W=9;
       L=(int) Math.pow(2, W); 
@@ -82,7 +82,8 @@ public class LZWmod {
         current.append(c);
         Integer codeword = st.get(current);
         while (!BinaryStdIn.isEmpty()) {
-          if( code>=L && W<maxCodwordLength)
+          //When full max space bigger
+          if( code==L && W<maxCodwordLength)
           {
             ++W;
             L=(int) Math.pow(2, W);  
@@ -91,6 +92,7 @@ public class LZWmod {
           if(code==(int) Math.pow(2,16))
               {
                 st = new TSTmod<Integer>();
+               //apply ascii back in tst
                 for (int i = 0; i < R; i++)
                     st.put(new StringBuilder("" + (char) i), i);
                 code = R+1;
@@ -138,9 +140,10 @@ public class LZWmod {
           
           String val = st[codeword];
           while(true) {
-            //used to see if full and reset array since array needed -1  
+            //used to see if full and reset... use -1 because it is an array  
             if(i==(int) Math.pow(2, 16)-1)
             {
+              
               W=9;
               L=(int) Math.pow(2, W);
               st=new String[L];
@@ -177,7 +180,6 @@ public class LZWmod {
               {
                 st[i++] = val +s.charAt(0);
               }
-            
               val = s; 
              
                //if the codebook is filled up reset
@@ -192,7 +194,7 @@ public class LZWmod {
           String val = st[codeword];
           while(true) {
             //when array is full hard copy values into bigger array  
-            if(i>=L-1 && W!=maxCodwordLength)
+            if(i==L-1 && W!=maxCodwordLength)
               {
                 W++;
                 String[] newst = new String[L];
