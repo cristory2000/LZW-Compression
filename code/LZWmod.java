@@ -151,8 +151,8 @@ public class LZWmod {
                 st[i] = "" + (char) i;
               st[i++] = "";
               //BinaryStdOut.write(val);
-              codeword = BinaryStdIn.readInt(W);
-              val = st[codeword];
+              //codeword = BinaryStdIn.readInt(W);
+              //val = st[codeword];
             }    
            //make array bigger and hard copy values back into st
             if(i==L-1 && W!=maxCodwordLength)
@@ -182,7 +182,7 @@ public class LZWmod {
               }
               val = s; 
              
-               //if the codebook is filled up reset
+               
            
         } 
         BinaryStdOut.close();
@@ -198,6 +198,7 @@ public class LZWmod {
               {
                 W++;
                 String[] newst = new String[L];
+                
                 L = (int) Math.pow(2, W);
                 for (int x=0; x<newst.length; x++)
                 {
