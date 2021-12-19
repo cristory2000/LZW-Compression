@@ -20,12 +20,6 @@ _Goal 4_: Allow LZW to learn new patterns after the codebook size is reached by 
 
 3.	There are three fundamental problems with this code as given: 
 
-    - The code reads the entire file as a single string, then compresses the characters in this string.  This is problematic in that a very large file could not effectively be fit into a single Java string.  Further, since JDK 7, the `substring()` method in the Java `String` class actually generates a new String object, causing a lot of overhead when used in the manner shown in the author's `LZW.java` file.  In fact, with the textbook code using JDK 7+ and a large input file, the compression can take an excessive amount of time (ex: hours). This is due primarily to the code on line 30 of the `LZW.java` file `input = input.substring(t);`. The purpose of this statement is to shift down in the string past the characters that have already matched in the LZW dictionary.  However, since in JDK 7+ the `substring()` method generates a new String, the effect of this statement is to create a copy of the entire file string, minus a few characters at the beginning that already matched in the dictionary.  It is easy to see how this process repeated many many times (thousands and even millions) can slow the program execution incredibly.
-
-    - The code uses a fixed length, relatively small codeword size (12 bits).  With this limit, the program will run out of codewords relatively quickly and will not handle large files (especially archives) well.
-
-    - When all code words are used, the program continues to use the existing dictionary for the remainder of the compression.  This may be ok if the rest of the file to be compressed is similar to what has already been compressed, but it may not be.
-
 4. In this assignment you will modify the author's code so as to correct (somewhat) these three problems.  Proceed in the following way:
 
     - Download the implementation of the algorithm provided and get it to work. Follow the instructions in the comments and run the program on a few test files to get familiar with using it.  Try running the program with a large input file to see the behavior discussed above.
@@ -56,18 +50,7 @@ $ java LZWmod + < bogus.lzw > bogus2.txt
 
 The file `bogus2.txt` should now be identical to the file `bogus.txt` (You can confirm that using `diff` in Linux/MacOS and `fc` in Windows).  Note that there is no flag for what to do when the dictionary fills – this should be obtained from the front of the compressed file itself (which, again, requires only a single bit).
 
-6.	Once you have your `LZWmod.java` program working, you should analyze its performance.  A number of files to use for testing are provided on Canvas. Specifically, you will compare the performance of 4 different implementations:
-
-  - The original `LZW.java` program using codewords of 12 bits (i.e. the way it is originally – you don't have to change anything)
-  - Your modified `LZWmod.java` program with the streaming input text and variable length `BITS` from 9 to 16 as explained above, without dictionary reset.
-  - Your modified `LZWmod.java` program with the streaming input text and variable length `BITS` from 9 to 16 as explained above, with dictionary reset.
-  - The predefined Unix `compress` program (which also uses the lzw algorithm).  If you have a Mac or Linux machine you can run this version directly on your computer.   If you have a Windows machine, you can use the version of `compress.exe` in this repository (obtained originally from http://unxutils.sourceforge.net/ ).  To decompress with this program use the flag `-d`.
-
-Run all programs on all of the files and for each file record the original size, compressed size, and compression ratio (original size / compressed size).
-
-[**Note**: Because of the aforementioned run-time issues with the author's original code, it may take a prohibitive amount of time to get results for the larger files. However, it should eventually complete – just leave yourself a lot of time for your runs.]
-
-7.	Write a short (~2 pages) paper, named `a3.md` using [Github Markdown syntax](https://guides.github.com/features/mastering-markdown/), that discusses each of the following:
+7.	 `a3.md` discusses each of the following:
   - How all four of the lzw variation programs compared to each other (via their compression ratios) for each of the different files.  Where there was a difference between them, be sure to explain (or speculate) why.  To support your assertions, include a table showing all of the results of your tests (original sizes, compressed sizes and compression ratios for each algorithm).
   - For all algorithms, indicate which of the test files gave the best and worst compression ratios, and speculate as to why this was the case.  If any files did not compress at all or compressed very poorly (or even expanded), speculate as to why.
   
