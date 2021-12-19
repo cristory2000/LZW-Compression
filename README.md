@@ -1,9 +1,5 @@
 # CS 1501 – Algorithm Implementation – Assignment #3
 
-Due: Monday November 15th @ 11:59pm on Gradescope
-
-Late submission deadline: Wednesday November 17th @11:59pm with 10% penalty per late day
-
 ## OVERVIEW
  
 **Purpose:** The purpose of this assignment is to fully understand the LZW compression algorithm, its performance and its implementation. We will improve the performance of the textbook's LZW implementation when the input files are large.
@@ -74,48 +70,4 @@ Run all programs on all of the files and for each file record the original size,
 7.	Write a short (~2 pages) paper, named `a3.md` using [Github Markdown syntax](https://guides.github.com/features/mastering-markdown/), that discusses each of the following:
   - How all four of the lzw variation programs compared to each other (via their compression ratios) for each of the different files.  Where there was a difference between them, be sure to explain (or speculate) why.  To support your assertions, include a table showing all of the results of your tests (original sizes, compressed sizes and compression ratios for each algorithm).
   - For all algorithms, indicate which of the test files gave the best and worst compression ratios, and speculate as to why this was the case.  If any files did not compress at all or compressed very poorly (or even expanded), speculate as to why.
-
-8.	Important Notes:
-
-  - In the author's code the bits per codeword (`W`) and number of codewords (`L`) values are constants.  However, in your version you will need them to be variables.  Clearly, as the bits per codeword value increases, so does the number of code words value. 
-  - The symbol table that you use for the compression dictionary (ex: Trie, DLB) can grow dynamically, so you do not have to alter this as the codeword size increases.  However, for the expand() method an array of `String` is used for the dictionary.  Make sure this is large enough to accommodate the maximum possible number of code words.
-  - Carefully trace what your code is doing as you modify it.  You only have to write a few lines of code for this program, but it could still require a substantial amount of time to get to work properly.  Clearly, the trickiest parts occur when the bits per codeword values are increased and when the dictionary is reset.  It is vital that these changes be made in a consistent way during both compress and decompress.   I recommend tracing these portions of code, either on paper or with output statements to make sure your compress and expand sections are treating them correctly.  One idea is to have an extra output file for each of the `compress()` and `expand()` methods to output any trace code.  Printing out (codeword, string) pairs in the iterations just before and after a bit change or reset is done can help you a lot to synchronize your code properly.
   
-## EXTRA CREDIT
-
-If you want to try some extra credit on this assignment, you can implement the reset in seamless way, so that the user does not have to specify whether or not to reset the dictionary.  As discussed in lecture, this would involve some type of monitoring of the compression ratio once the codewords are all used and a reset would occur only when the compression ratio degrades to some level (you may have to do some trial and error to find a good value for the reset trigger level).
-
-## SUBMISSION REQUIREMENTS
-You must submit to Gradescope (through your Github Repository) at least the following files:
-
-1.	Your `LZWmod.java` file 
-2.	The modified Symbol Table implementation (e.g., `TSTmod.java`)
-3. Any other Java files that you have written 
-4. Assignment Information Sheet.
-5. The 2-page writeup (~1000 words), named `a3.md`.
-
-The idea from your submission is that your TA and the autograder can compile and run your programs from the command line WITHOUT ANY additional files or changes, so be sure to test it thoroughly before submitting it. If the TA cannot compile or run your submitted code it will be graded as if the program does not work.
-If you cannot get the programs working as given, clearly indicate any changes you made and clearly indicate why on your Assignment Information Sheet.  You will lose some credit for not getting it to work properly, but getting the main programs to work with modifications is better than not getting them to work at all.  A template for the Assignment Information Sheet can be found in this repository. You do not have to use this template but your sheet should contain the same information.  
-
-**Note**: If you use an IDE such as NetBeans, Eclipse, or IntelliJ, to develop your programs, make sure they will compile and run on the command line before submitting – this may require some modifications to your program (such as removing some package information). 
-
-**Note**: Do not submit any of the test files (input or output) – this will waste an incredible amount of space on the submission site!
-
-## RUBRICS
-__*Please note that if an autograder is available, its score will be used as a guidance for the TA, not as an official final score*__.
-
-Item|Points
-----|------
-Char by char (byte by byte) input is correct|	14 points
-StringBuilder used for prefix searches|	8 points
-Symbol table implemented / modified correctly|	8 points
-Variable-bit LZW kind of works|	8 points
-Variable-bit LZW mostly works|	8 points
-Variable-bit LZW is completely correct|	8 points
-Reset option works correctly|	12 points
-Results shown/correct for all tested files|	8 points
-Original compared to modified version in write-up|	8 points
-Comp. ratios of different files compared/explained|	8 points
-Documentation|	5 points
-Submission / Assignment Information Sheet|	5 points
-Extra Credit|	10 points
